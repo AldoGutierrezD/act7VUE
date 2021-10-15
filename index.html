@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="icono.png" type="image/x-ic">
+    <title>Encuesta sobre plantas</title>
+</head>
+<body class="bg-gradient-to-r from-yellow-100 to-green-100">
+    <section class="w-9/12 m-auto my-8 bg-green-200 rounded-2xl">
+        <header>
+            <h1 class="text-3xl font-medium text-center">Encuesta sobre plantas</h1>
+        </header>
+        <section id="seccion-principal">
+            <article>
+                <div class="w-full my-4 p-2 bg-green-600">
+                    <p class="">
+                        <h2 class="text-center">¿Te gustas las plantas?</h2>
+                        <input type="radio" name="eleccion" @change="muestraPregunta(1)">Si
+                        <input type="radio" name="eleccion" @change="muestraPregunta(0)">No
+                    </p>
+                </div>
+                <!--CAJA DE DATOS DEPENDIENDO DE LA RESPUESTA ANTERIOR-->
+                <br>
+                <a v-if="mostrar" @click="muestraResultados()">
+                    <div class="bg-green-400 p-3">
+                        <h3>¿Desde cuando te gustan las plantas?</h3>
+                        <input class="w-full my-2 p-0.5" type="text" v-model="ask1" placeholder="Ingresa el tiempo" required>
+                    </div>
+                    <div class="bg-green-100 p-3">
+                        <h3>¿Porqué te interesaste en ellas?</h3>
+                        <input class="w-full my-2 p-0.5" type="text" v-model="ask2" placeholder="Escribe tu experiencia" required>
+                    </div>
+                    <div class="bg-green-400 p-3">
+                        <h3>¿Cuáles tipos de plantas conoces?</h3>
+                        <input class="w-full my-2 p-0.5" type="text" v-model="ask3" @keyup.enter="agregar()" required>
+                        <div class="flex justify-center">
+                            <input class="mx-40 my-2 p-1 bg-yellow-100 cursor-pointer hover:bg-yellow-200" type="button" value="Agregar" @click="agregar()">
+                        </div>
+                        <ul>
+                            <li class="list-disc mx-12" v-for="(valor, i) in ask3Array" :key="i">{{valor}}</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-100 p-3">
+                        <h3>¿Para qué utilizas las plantas?</h3>
+                        <input type="radio" name="radioOpcion" v-model="ask4" value="Infusiones">Infusiones
+                        <input type="radio" name="radioOpcion" v-model="ask4" value="Adorno">Adorno
+                        <input type="radio" name="radioOpcion" v-model="ask4" value="Amor a la naturaleza">Amor a la naturaleza
+                    </div>
+                    <div class="flex justify-center">
+                        <input class="w-2/4 h-10 my-4 p-2 bg-yellow-200 cursor-pointer hover:bg-yellow-100" type="button" value="Ver mis respuestas" @click="mostrarResultados()">
+                    </div>
+                    </a>
+                mx-36 my-4
+                <span v-else>{{mensaje}}</span>
+            </article>
+            <article class="w-full p-4 bg-green-400">
+                <h2 class="text-2xl text-center">Resultados</h2>
+                <div class="mx-8" v-if="cambiar=='Mostrar'">
+                    <h2>1. ¿Desde cuando te gustan las plantas?: {{ask1}}</h2>
+                    <h2>2. ¿Porqué te interesaste en ellas? {{ask2}}</h2>
+                    <h3>3. ¿Cuáles tipos de plantas conoces?</h3>
+                    <ul>
+                        <li class="list-disc mx-4" v-for="(valor, i) in ask3Array" :key="i">{{valor}}</li>
+                    </ul>
+                    <h3>4. ¿Para qué utilizas las plantas? {{ask4}}</h3>
+                </div>
+            </article>
+        </section>
+    </section>
+    <script src="vue.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
